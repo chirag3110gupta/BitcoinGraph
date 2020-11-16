@@ -6,4 +6,4 @@
 - Chirag Gupta (chiragg4)
 
 ## Project Details
-- Dataset used: [Spotify Dataset 1921-2020, 160k+ Tracks](https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks) (Processed & Cleaned)
+- Dataset used: [Spotify Dataset 1921-2020, 160k+ Tracks](https://www.kaggle.com/yamaerenay/spotify-dataset-19212020-160k-tracks) (Processed)
