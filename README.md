@@ -5,7 +5,7 @@
 - Anit Kapoor (anityak2)
 - Chirag Gupta (chiragg4)  
 
-## Team Members:
+## Team Contract:
 - [Contract](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Team%20Contract.pdf)
 
 ## Project Details
