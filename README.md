@@ -13,5 +13,5 @@
 
 ## Project Details
 
-- Dataset used: [Bitcoin OTC trust weighted signed network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html)
+- Dataset used: [Bitcoin OTC trust weighted signed network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html) (Processed)
 - Specifications: [Project Goals](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Project%20Goals.pdf)
