@@ -2,4 +2,4 @@
 
 #include "loadcsv/loadcsv.h"
 
-int main() { auto g = LoadCSV("assets/datasets/dataz.csv", true); }
+int main() { auto g = LoadCSV("assets/datasets/data.csv", true); }
