@@ -4,9 +4,11 @@
 #include <unordered_map>
 #include <vector>
 
-class Graph {public:
+class Graph {
+   public:
     Graph();
     ~Graph();
+
     bool vertex_exists(std::string vertex);
     bool edge_exists(std::string source, std::string target);
     void insert_vertex(std::string vertex);
