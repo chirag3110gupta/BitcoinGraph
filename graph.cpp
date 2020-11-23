@@ -30,7 +30,7 @@ void Graph::insert_edge(std::string source, std::string target, int weight) {
     adjList[source][target] = weight;
 }
 
-std::vector<std::string> Graph::get_adjactent(std::string vertex) {
+std::vector<std::string> Graph::get_adjacent(std::string vertex) {
     std::vector<std::string> adjacent;
     for (auto &obj : adjList[vertex]) 
         adjacent.push_back(obj.first);
