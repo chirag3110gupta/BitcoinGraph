@@ -3,17 +3,17 @@
 #include <vector>
 class User {
     public:
-    User(int ID):_userID(ID), _fromuser(0), _touser(0), _avgrating(0) {};
+    User(int ID):_userID(ID), _transFromUser(0), _transToUser(0), _avgRating(0) {};
     int getUserID() { return _userID; }
-    int getNumTransactionsToUser() { return _touser; }
-    int getNumTransactionsFromUser() { return _fromuser; }
-    double getAverageRating() { return _avgrating; }
-    int getNumTransactions();
+    int transactionsToUser() { return _transToUser; }
+    int transactionsFromUser() { return _transFromUser; }
+    double averageRating() { return _avgRating; }
+    int numTransactions();
     void newTransaction(Transaction& trans);
 
    private:
     int _userID;
-    int _fromuser, _touser;
-    double _avgrating;
+    int _transFromUser, _transToUser;
+    double _avgRating;
 
 };
