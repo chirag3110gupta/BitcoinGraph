@@ -1,14 +1,14 @@
 #include "user.h"
 
-int User::getNumTransactions() {
-    return _touser + _fromuser;
+int User::numTransactions() {
+    return _transToUser + _transFromUser;
 }
 void User::newTransaction(Transaction& trans) {
-    if (trans.getSource()->getUserID() == _userID) {
-        _fromuser++;
-    }
+    if (trans.getSource()->getUserID() == _userID)  
+        _transFromUser++;
+
     else if (trans.getTarget()->getUserID() == _userID) {
-        _touser++;
-        _avgrating = (_avgrating * (_touser - 1) + trans.getRating()) / _touser;
+        _transToUser++;
+        _avgRating = (_avgRating * (_transToUser - 1) + trans.getRating()) / _transToUser;
     }
 }
