@@ -1,7 +1,6 @@
 #pragma once
 #include "user.h"
 
-// this is adit lol
 class Transaction {
    public:
     Transaction(User *sourceID, User *targetID, int rating);
