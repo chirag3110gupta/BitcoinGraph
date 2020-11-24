@@ -4,9 +4,9 @@ class Transaction {
    public:
     Transaction(User *sourceID, User *targetID, int rating);
     Transaction(User *sourceID, User *targetID);
-    User *getSource() { return _sourceID; }
-    User *getTarget() { return _targetID; }
-    int getRating() { return _rating; }
+    User *source() { return _sourceID; }
+    User *target() { return _targetID; }
+    int rating() { return _rating; }
 
    private:
     User *_sourceID, *_targetID;
