@@ -18,4 +18,5 @@ LoadCSV::LoadCSV(std::string filepath, bool has_header) {
     } else {
         std::cerr << "Invalid csv filepath" << std::endl;
     }
+    data.close();
 }
