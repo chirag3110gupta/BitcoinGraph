@@ -16,7 +16,7 @@ bool Graph::edge_exists(int source, int target) {
     if (!vertex_exists(source))
         return false;
 
-    for (auto const &obj : adjList.at(source).first) {
+    for (auto &obj : adjList.at(source).first) {
         if (obj.getSource()->getUserID() == source && obj.getTarget()->getUserID() == target)
             return true;
     }
@@ -67,7 +67,7 @@ std::vector<User> Graph::get_out_ajacent(User vertex) {
 
 double Graph::get_weight(int source, int target) {
     // TODO: Need to complete this function
-    for (auto const &obj : adjList.at(source).first) {
+    for (auto &obj : adjList.at(source).first) {
         if (obj.getSource()->getUserID() == source && obj.getTarget()->getUserID() == target)
     }
 }
