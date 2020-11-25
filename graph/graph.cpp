@@ -5,6 +5,8 @@
 #include "../bitcoin/transaction.h"
 #include "../bitcoin/user.h"
 
+// hi this is aliva
+
 Graph::Graph() {
     // nothing to do here
 }
