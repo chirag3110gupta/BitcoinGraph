@@ -18,6 +18,7 @@ class Graph {
     std::vector<User> get_in_adjacent(User vertex);
     std::vector<User> get_out_ajacent(User vertex);
     double get_weight(int source, int target);
+    void BFS(int source);
 
    private:
     std::unordered_map<User, std::pair<std::vector<Transaction>, std::vector<Transaction>>> adjList;

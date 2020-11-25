@@ -1,9 +1,14 @@
 #include "graph.h"
 
 #include <algorithm>
+#include <list>
+#include <vector>
+#include <iostream>
 
 #include "../bitcoin/transaction.h"
 #include "../bitcoin/user.h"
+
+using namespace std;
 
 // hi this is aliva
 
@@ -70,5 +75,28 @@ double Graph::get_weight(int source, int target) {
     for (auto &obj : adjList.at(source).first) {
         if (obj.source()->getUserID() == source &&
             obj.target()->getUserID() == target)
+    }
+}
+
+void Graph::BFS(int source) {
+    vector<bool> visited;
+    std::list<int> queue; 
+    visited[source] = true;
+    queue.push_back(source);
+
+    while (!queue.empty()) {
+        int source = queue.front();
+        queue.pop_front();
+
+        for (auto &obj : adjList.at(source).first) {
+
+            /**
+             *  explanation  
+             **/
+            if (!visited[(*obj.target()).getUserID()]) {
+                visited[(*obj.target()).getUserID()] = true;
+                queue.push_back((*obj.target()).getUserID());
+            }
+        }
     }
 }
