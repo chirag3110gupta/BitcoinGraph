@@ -1,9 +1,9 @@
 #include "graph.h"
-
+// HELLO KWEEN
 #include <algorithm>
+#include <iostream>
 #include <list>
 #include <vector>
-#include <iostream>
 
 #include "../bitcoin/transaction.h"
 #include "../bitcoin/user.h"
@@ -80,7 +80,7 @@ double Graph::get_weight(int source, int target) {
 
 void Graph::BFS(int source) {
     vector<bool> visited;
-    std::list<int> queue; 
+    std::list<int> queue;
     visited[source] = true;
     queue.push_back(source);
 
@@ -89,7 +89,6 @@ void Graph::BFS(int source) {
         queue.pop_front();
 
         for (auto &obj : adjList.at(source).first) {
-
             /**
              *  explanation  
              **/
