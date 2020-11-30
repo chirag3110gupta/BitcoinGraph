@@ -1,23 +1,32 @@
 #include "graph.h"
 
 #include <algorithm>
+#include <iostream>
 #include <list>
 #include <vector>
-#include <iostream>
 
 #include "../bitcoin/transaction.h"
 #include "../bitcoin/user.h"
 
 using namespace std;
 
-// hi this is aliva
-
+/**
+ * This function creates an instance of the graph object with uninitialized
+ *parameters
+ **/
 Graph::Graph() {
     // nothing to do here
 }
 
 Graph::~Graph() {}
 
+/**
+ * Tells whether or not an edge exists between two specified integer value ID's
+ *
+ * @param source The integer starting/base vertex for expected edge
+ * @param target The integer ending/final vertex for expected edge
+ * @returns A bool where true implies that the edge exists and vice versa
+ **/
 bool Graph::edge_exists(int source, int target) {
     if (!vertex_exists(source)) return false;
 
@@ -29,16 +38,38 @@ bool Graph::edge_exists(int source, int target) {
     return false;
 }
 
+/**
+ * Tells whether or not a vertex with a specified ID exists within the graph
+ *structure
+ *
+ * @param vertex The user object who's existence needs to be checked
+ * @returns A bool where true implies that the vertex exists and vice versa
+ **/
 bool Graph::vertex_exists(User vertex) {
     return adjList.find(vertex) != adjList.end();
 }
 
+/**
+ * Inserts a vertex into the adjacency list
+ *
+ * @param vertex The user object that needs to be inserted into the graph
+ * @returns void
+ **/
 void Graph::insert_vertex(User vertex) {
     adjList[vertex] =
         std::pair<std::vector<Transaction>, std::vector<Transaction>>();
 }
 
-void Graph::insert_edge(User source, User target, double weight) {
+/**
+ * Inserts an edge into the adjacency list
+ *
+ * @param source The user object that the edge should begin from
+ * @param target The user object that the edge should be directed towards
+ * @param rating The source user rating of the target that acts as the weights
+ *for the directed edges
+ * @returns void
+ **/
+void Graph::insert_edge(User source, User target, double rating) {
     if (!vertex_exists(source)) insert_vertex(source);
 
     if (!vertex_exists(target)) insert_vertex(target);
@@ -47,13 +78,21 @@ void Graph::insert_edge(User source, User target, double weight) {
     User *heapTarget = new User(target);
 
     // cannot use addresses of keys as parameters for transaction class
-    Transaction edge(heapSource, heapTarget, weight);
+    Transaction edge(heapSource, heapTarget, rating);
     heapSource->newTransaction(edge);
     heapTarget->newTransaction(edge);
     adjList[source].first.push_back(edge);
     adjList[target].second.push_back(edge);
 }
 
+/**
+ * Finds the adjacent vertices that have an incoming directed edge to a
+ *specified vertex
+ *
+ * @param vertex The vertex who's incoming adjacent vertices need to be found
+ * @returns A vector of Users that have an incoming edge to the specified
+ *vertex
+ **/
 std::vector<User> Graph::get_in_adjacent(User vertex) {
     std::vector<User> adjacent;
     for (auto &obj : adjList.at(vertex).second)
@@ -62,6 +101,14 @@ std::vector<User> Graph::get_in_adjacent(User vertex) {
     return adjacent;
 }
 
+/**
+ * Finds the adjacent vertices that have an outgoing directed edge from a
+ *specified vertex
+ *
+ * @param vertex The vertex who's outgoing adjacent vertices need to be found
+ * @returns A vector of Users that have an ougoing edge from the specified
+ *vertex
+ **/
 std::vector<User> Graph::get_out_ajacent(User vertex) {
     std::vector<User> adjacent;
     for (auto &obj : adjList.at(vertex).first)
@@ -70,17 +117,26 @@ std::vector<User> Graph::get_out_ajacent(User vertex) {
     return adjacent;
 }
 
-double Graph::get_weight(int source, int target) {
-    // TODO: Need to complete this function
+/**
+ * Gets the rating of a target User given by the source User. Assumes that the
+ *edge exists, thus the onus of managing exceptions is on the future user.
+ *
+ * @param source The integer ID of the source User
+ * @param target The integer ID of the target User
+ * @returns A double representing the rating given by a source User to a target
+ *User
+ **/
+double Graph::get_rating(int source, int target) {
     for (auto &obj : adjList.at(source).first) {
         if (obj.source()->getUserID() == source &&
             obj.target()->getUserID() == target)
+            return obj.rating();
     }
 }
 
 void Graph::BFS(int source) {
     vector<bool> visited;
-    std::list<int> queue; 
+    std::list<int> queue;
     visited[source] = true;
     queue.push_back(source);
 
@@ -89,9 +145,8 @@ void Graph::BFS(int source) {
         queue.pop_front();
 
         for (auto &obj : adjList.at(source).first) {
-
             /**
-             *  explanation  
+             *  explanation
              **/
             if (!visited[(*obj.target()).getUserID()]) {
                 visited[(*obj.target()).getUserID()] = true;
