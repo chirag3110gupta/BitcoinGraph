@@ -155,3 +155,38 @@ void Graph::BFS(int source) {
         }
     }
 }
+
+void Graph::PageRank(int iterations) {
+
+    std::unordered_map<User, double> oldPageRank, newPageRank;
+    double sizeOfGraph = adjList.size();
+    double dampingFactor = 0.85;
+
+    for (auto& pair : adjList) {
+        User curr = pair.first;
+        oldPageRank[curr] = 1/sizeOfGraph;
+    }
+
+    while (iterations > 0) {
+        double dp = 0;
+
+        for (auto& pair : adjList) {
+            User curr = pair.first;
+            if (curr.transactionsFromUser() == 0) {
+                dp = dp + (dampingFactor * oldPageRank[curr]/sizeOfGraph);
+            }
+        }
+
+        for (auto& pair : adjList) {
+            User curr = pair.first;
+            newPageRank[curr] = dp + ((1 - dampingFactor)/sizeOfGraph);
+            for (Transaction& transaction : adjList[curr].second) {
+                newPageRank[curr] += dampingFactor * oldPageRank[*transaction.source()]/transaction.source()->transactionsFromUser();
+            }
+        }
+        oldPageRank = newPageRank;
+        iterations--;
+    }
+
+    pagerank = newPageRank;
+}

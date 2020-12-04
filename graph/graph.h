@@ -19,9 +19,11 @@ class Graph {
     std::vector<User> get_out_ajacent(User vertex);
     double get_rating(int source, int target);
     void BFS(int source);
+    void PageRank(int iterations);
 
    private:
     std::unordered_map<
         User, std::pair<std::vector<Transaction>, std::vector<Transaction>>>
         adjList;
+    std::unordered_map<User, double> pagerank;
 };
