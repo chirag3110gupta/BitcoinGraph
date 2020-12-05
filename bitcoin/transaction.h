@@ -7,9 +7,9 @@ class Transaction {
     Transaction(User *sourceID, User *targetID);
     ~Transaction();
 
-    User *source() { return _sourceID; }
-    User *target() { return _targetID; }
-    int rating() { return _rating; }
+    User *source();
+    User *target();
+    int rating();
 
    private:
     User *_sourceID, *_targetID;

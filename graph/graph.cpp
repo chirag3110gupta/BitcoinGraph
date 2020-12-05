@@ -1,6 +1,7 @@
 #include "graph.h"
 
 #include <algorithm>
+#include <fstream>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -28,14 +29,14 @@ Graph::~Graph() {}
  * @returns A bool where true implies that the edge exists and vice versa
  **/
 bool Graph::edge_exists(int source, int target) {
-    if (!vertex_exists(source)) return false;
+    // if (!vertex_exists(source)) return false;
 
-    for (auto &obj : adjList.at(source).first) {
-        if (obj.source()->getUserID() == source &&
-            obj.target()->getUserID() == target)
-            return true;
-    }
-    return false;
+    // for (auto &obj : adjList.at(source).first) {
+    //     if (obj.source()->getUserID() == source &&
+    //         obj.target()->getUserID() == target)
+    //         return true;
+    // }
+    // return false;
 }
 
 /**
@@ -46,7 +47,7 @@ bool Graph::edge_exists(int source, int target) {
  * @returns A bool where true implies that the vertex exists and vice versa
  **/
 bool Graph::vertex_exists(User vertex) {
-    return adjList.find(vertex) != adjList.end();
+    // return adjList.find(vertex) != adjList.end();
 }
 
 /**
@@ -56,8 +57,8 @@ bool Graph::vertex_exists(User vertex) {
  * @returns void
  **/
 void Graph::insert_vertex(User vertex) {
-    adjList[vertex] =
-        std::pair<std::vector<Transaction>, std::vector<Transaction>>();
+    // adjList[vertex] =
+    //     std::pair<std::vector<Transaction>, std::vector<Transaction>>();
 }
 
 /**
@@ -70,19 +71,19 @@ void Graph::insert_vertex(User vertex) {
  * @returns void
  **/
 void Graph::insert_edge(User source, User target, double rating) {
-    if (!vertex_exists(source)) insert_vertex(source);
+    // if (!vertex_exists(source)) insert_vertex(source);
 
-    if (!vertex_exists(target)) insert_vertex(target);
+    // if (!vertex_exists(target)) insert_vertex(target);
 
-    User *heapSource = new User(source);
-    User *heapTarget = new User(target);
+    // User *heapSource = new User(source);
+    // User *heapTarget = new User(target);
 
-    // cannot use addresses of keys as parameters for transaction class
-    Transaction edge(heapSource, heapTarget, rating);
-    heapSource->newTransaction(edge);
-    heapTarget->newTransaction(edge);
-    adjList[source].first.push_back(edge);
-    adjList[target].second.push_back(edge);
+    // // cannot use addresses of keys as parameters for transaction class
+    // Transaction edge(heapSource, heapTarget, rating);
+    // // heapSource->newTransaction(edge);
+    // // heapTarget->newTransaction(edge);
+    // adjList[source].first.push_back(edge);
+    // adjList[target].second.push_back(edge);
 }
 
 /**
@@ -94,11 +95,11 @@ void Graph::insert_edge(User source, User target, double rating) {
  *vertex
  **/
 std::vector<User> Graph::get_in_adjacent(User vertex) {
-    std::vector<User> adjacent;
-    for (auto &obj : adjList.at(vertex).second)
-        adjacent.push_back(obj.source()->getUserID());
+    // std::vector<User> adjacent;
+    // for (auto &obj : adjList.at(vertex).second)
+    //     adjacent.push_back(obj.source()->getUserID());
 
-    return adjacent;
+    // return adjacent;
 }
 
 /**
@@ -110,11 +111,11 @@ std::vector<User> Graph::get_in_adjacent(User vertex) {
  *vertex
  **/
 std::vector<User> Graph::get_out_ajacent(User vertex) {
-    std::vector<User> adjacent;
-    for (auto &obj : adjList.at(vertex).first)
-        adjacent.push_back(obj.source()->getUserID());
+    // std::vector<User> adjacent;
+    // for (auto &obj : adjList.at(vertex).first)
+    //     adjacent.push_back(obj.source()->getUserID());
 
-    return adjacent;
+    // return adjacent;
 }
 
 /**
@@ -127,31 +128,52 @@ std::vector<User> Graph::get_out_ajacent(User vertex) {
  *User
  **/
 double Graph::get_rating(int source, int target) {
-    for (auto &obj : adjList.at(source).first) {
-        if (obj.source()->getUserID() == source &&
-            obj.target()->getUserID() == target)
-            return obj.rating();
-    }
+    // for (auto &obj : adjList.at(source).first) {
+    //     if (obj.source()->getUserID() == source &&
+    //         obj.target()->getUserID() == target)
+    //         return obj.rating();
+    // }
 }
 
 void Graph::BFS(int source) {
-    vector<bool> visited;
-    std::list<int> queue;
-    visited[source] = true;
-    queue.push_back(source);
+    // vector<bool> visited;
+    // std::list<int> queue;
+    // visited[source] = true;
+    // queue.push_back(source);
 
-    while (!queue.empty()) {
-        int source = queue.front();
-        queue.pop_front();
+    // while (!queue.empty()) {
+    //     int source = queue.front();
+    //     queue.pop_front();
 
-        for (auto &obj : adjList.at(source).first) {
-            /**
-             *  explanation
-             **/
-            if (!visited[(*obj.target()).getUserID()]) {
-                visited[(*obj.target()).getUserID()] = true;
-                queue.push_back((*obj.target()).getUserID());
-            }
+    //     for (auto &obj : adjList.at(source).first) {
+    //         /**
+    //          *  explanation
+    //          **/
+    //         if (!visited[(*obj.target()).getUserID()]) {
+    //             visited[(*obj.target()).getUserID()] = true;
+    //             queue.push_back((*obj.target()).getUserID());
+    //         }
+    //     }
+    // }
+}
+
+std::vector<std::string> Graph::LoadCSV(std::string filepath, bool has_header) {
+    std::vector<std::string> toReturn;
+    std::ifstream data(filepath);
+    std::string entry;
+
+    if (data.is_open()) {
+        if (has_header) {  // Ignore the headers of the csv
+            getline(data, entry);
         }
+
+        while (getline(data, entry)) {
+            toReturn.push_back(entry);
+        }
+    } else {
+        std::cerr << "Invalid csv filepath" << std::endl;
     }
+    data.close();
+
+    return toReturn;
 }
