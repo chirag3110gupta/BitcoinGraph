@@ -1,5 +1,8 @@
-EXENAME = final_proj
+EXE = final_proj
+TEST = test
+
 OBJS = main.o graph.o
+TEST_OBJS = test.o graph.o catchmain.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -25,12 +28,15 @@ endif
 
 .PHONY: all test clean output_msg
 
-all : $(EXENAME)
+all : $(EXE)
+
+$(TEST) : output_msg $(TEST_OBJS)
+	$(LD) $(TEST_OBJS) $(LDFLAGS) -o $(TEST)
 
 output_msg: ; $(CLANG_VERSION_MSG)
 
-$(EXENAME) : output_msg $(OBJS)
-	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
+$(EXE) : output_msg $(OBJS)
+	$(LD) $(OBJS) $(LDFLAGS) -o $(EXE)
 
 main.o : main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp
@@ -40,6 +46,12 @@ graph.o : graph/graph.cpp graph/graph.h graph/edge.h
 
 edge.o : graph/edge.h
 	$(CXX) $(CXXFLAGS) graph/edge.h
+
+test.o : tests/test.cpp graph/graph.h graph/edge.h
+	$(CXX) $(CXXFLAGS) tests/test.cpp
+
+catchmain.o : tests/catch/catch.hpp tests/catch/catchmain.cpp
+	$(CXX) $(CXXFLAGS) tests/catch/catchmain.cpp
 
 # user.o : bitcoin/user.cpp bitcoin/user.h bitcoin/transaction.h
 # 	$(CXX) $(CXXFLAGS) bitcoin/user.cpp
@@ -70,4 +82,4 @@ edge.o : graph/edge.h
 
 
 clean :
-	-rm -f *.o $(EXENAME)
+	-rm -f *.o $(EXE) $(TEST)

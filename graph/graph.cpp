@@ -19,7 +19,7 @@ Graph::Graph() {
 }
 
 Graph::Graph(std::string filepath, bool hasHeader) {
-    auto data = LoadCSV(filepath, hasHeader);
+    for (auto entry : LoadCSV(filepath, hasHeader)) insertEdge(entry[0], entry[1], entry[2]);
 }
 
 Graph::~Graph() {}
@@ -36,8 +36,7 @@ bool Graph::edgeExists(Vertex source, Vertex target) {
     if (!vertexExists(source)) return false;
 
     for (auto &edge : adjList.at(source).first) {
-        if (edge == e)
-            return true;
+        if (edge == e) return true;
     }
 
     return false;
@@ -50,9 +49,7 @@ bool Graph::edgeExists(Vertex source, Vertex target) {
  * @param vertex The user object who's existence needs to be checked
  * @returns A bool where true implies that the vertex exists and vice versa
  **/
-bool Graph::vertexExists(Vertex vertex) {
-    return adjList.find(vertex) != adjList.end();
-}
+bool Graph::vertexExists(Vertex vertex) { return adjList.find(vertex) != adjList.end(); }
 
 /**
  * Inserts a vertex into the adjacency list
@@ -61,8 +58,8 @@ bool Graph::vertexExists(Vertex vertex) {
  * @returns void
  **/
 void Graph::insertVertex(Vertex vertex) {
-    adjList[vertex] =
-        std::pair<std::vector<Edge>, std::vector<Edge>>();
+    adjList[vertex] = std::pair<std::vector<Edge>, std::vector<Edge>>();
+    numVertices++;
 }
 
 /**
@@ -74,21 +71,17 @@ void Graph::insertVertex(Vertex vertex) {
  *for the directed edges
  * @returns void
  **/
-// void Graph::insert_edge(User source, User target, double rating) {
-// if (!vertex_exists(source)) insert_vertex(source);
 
-// if (!vertex_exists(target)) insert_vertex(target);
+void Graph::insertEdge(Vertex source, Vertex target, int rating) {
+    if (!vertexExists(source)) insertVertex(source);
 
-// User *heapSource = new User(source);
-// User *heapTarget = new User(target);
+    if (!vertexExists(target)) insertVertex(target);
 
-// // cannot use addresses of keys as parameters for transaction class
-// Transaction edge(heapSource, heapTarget, rating);
-// // heapSource->newTransaction(edge);
-// // heapTarget->newTransaction(edge);
-// adjList[source].first.push_back(edge);
-// adjList[target].second.push_back(edge);
-// }
+    adjList[source].first.emplace_back(Edge(source, target, rating));
+    adjList[target].second.emplace_back(Edge(source, target, rating));
+
+    numEdges++;
+}
 
 /**
  * Finds the adjacent vertices that have an incoming directed edge to a
@@ -98,13 +91,12 @@ void Graph::insertVertex(Vertex vertex) {
  * @returns A vector of Users that have an incoming edge to the specified
  *vertex
  **/
-// std::vector<User> Graph::get_in_adjacent(User vertex) {
-// std::vector<User> adjacent;
-// for (auto &obj : adjList.at(vertex).second)
-//     adjacent.push_back(obj.source()->getUserID());
+std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
+    auto adjacent = std::vector<Vertex>();
+    for (auto &edge : adjList.at(vertex).second) adjacent.push_back(edge.source);
 
-// return adjacent;
-// }
+    return adjacent;
+}
 
 /**
  * Finds the adjacent vertices that have an outgoing directed edge from a
@@ -114,13 +106,12 @@ void Graph::insertVertex(Vertex vertex) {
  * @returns A vector of Users that have an ougoing edge from the specified
  *vertex
  **/
-// std::vector<User> Graph::get_out_ajacent(User vertex) {
-// std::vector<User> adjacent;
-// for (auto &obj : adjList.at(vertex).first)
-//     adjacent.push_back(obj.source()->getUserID());
+std::vector<Vertex> Graph::getOutAjacent(Vertex vertex) {
+    auto adjacent = std::vector<Vertex>();
+    for (auto &edge : adjList.at(vertex).first) adjacent.push_back(edge.source);
 
-// return adjacent;
-// }
+    return adjacent;
+}
 
 /**
  * Gets the rating of a target User given by the source User. Assumes that the
@@ -133,35 +124,35 @@ void Graph::insertVertex(Vertex vertex) {
  **/
 int Graph::getRating(Vertex source, Vertex target) {
     auto e = Edge(source, target);
-    for (auto &edge : adjList.at(source).first) {
-        if (e == edge)
-            return edge.getRating();
-    }
+    for (auto &edge : adjList.at(source).first)
+        if (e == edge) return edge.getRating();
 
     return e.getRating();  // INT_MIN
 }
 
-// void Graph::BFS(int source) {
-// vector<bool> visited;
-// std::list<int> queue;
-// visited[source] = true;
-// queue.push_back(source);
+/*
+void Graph::BFS(int source) {
+vector<bool> visited;
+std::list<int> queue;
+visited[source] = true;
+queue.push_back(source);
 
-// while (!queue.empty()) {
-//     int source = queue.front();
-//     queue.pop_front();
+while (!queue.empty()) {
+    int source = queue.front();
+    queue.pop_front();
 
-//     for (auto &obj : adjList.at(source).first) {
-//         /**
-//          *  explanation
-//          **/
-//         if (!visited[(*obj.target()).getUserID()]) {
-//             visited[(*obj.target()).getUserID()] = true;
-//             queue.push_back((*obj.target()).getUserID());
-//         }
-//     }
-// }
-// }
+    for (auto &obj : adjList.at(source).first) {
+
+        // TODO:explanation
+
+        if (!visited[(*obj.target()).getUserID()]) {
+            visited[(*obj.target()).getUserID()] = true;
+            queue.push_back((*obj.target()).getUserID());
+        }
+    }
+}
+}
+**/
 
 std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeader) {
     std::vector<std::vector<int>> toReturn;
@@ -186,10 +177,22 @@ std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeade
 
             toReturn.push_back(tempVec);
         }
-    } else {
+    } else
         std::cerr << "Invalid csv filepath" << std::endl;
-    }
 
     data.close();
     return toReturn;
+}
+
+void Graph::printGraph() {
+    for (auto entry : adjList) {
+        for (auto f : entry.second.first) std::cout << f << std::endl;
+        std::cout << std::endl;
+
+        for (auto f : entry.second.second) std::cout << f << std::endl;
+        std::cout << std::endl << std::endl;
+    }
+
+    std::cout << std::endl
+              << "Created graph with " << numVertices << " vertices and " << numEdges << " edges." << std::endl;
 }
