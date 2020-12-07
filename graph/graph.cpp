@@ -184,6 +184,8 @@ std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeade
     return toReturn;
 }
 
+
+
 void Graph::printGraph() {
     for (auto entry : adjList) {
         for (auto f : entry.second.first) std::cout << f << std::endl;
@@ -195,4 +197,38 @@ void Graph::printGraph() {
 
     std::cout << std::endl
               << "Created graph with " << numVertices << " vertices and " << numEdges << " edges." << std::endl;
+}
+
+std::unordered_map<int, double> Graph::PageRank(int iterations) {
+    std::unordered_map<int, double> oldPageRank, newPageRank;
+    double sizeOfGraph = adjList.size();
+    double dampingFactor = 0.85;
+
+    for (auto& pair : adjList) {
+        int curr = pair.first;
+        oldPageRank[curr] = 1/sizeOfGraph;
+    }
+
+    while (iterations > 0) {
+        double dp = 0;
+
+        for (auto& pair : adjList) {
+            int curr = pair.first;
+            if (adjList[curr].second.size() == 0) {                             // Transactions from user
+                dp = dp + (dampingFactor * oldPageRank[curr]/sizeOfGraph);
+            }
+        }
+
+        for (auto& pair : adjList) {
+            int curr = pair.first;
+            newPageRank[curr] = dp + ((1 - dampingFactor)/sizeOfGraph);
+            for (Edge& transaction : adjList[curr].second) {
+                newPageRank[curr] += dampingFactor * oldPageRank[transaction.source]/adjList[transaction.source].second.size(); // Transactions from user
+            }
+        }
+        oldPageRank = newPageRank;
+        iterations--;
+    }
+
+    return newPageRank;
 }

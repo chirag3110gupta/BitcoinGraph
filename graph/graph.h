@@ -21,6 +21,7 @@ class Graph {
     int getRating(Vertex source, Vertex target);
     void BFS(int source);
     std::vector<std::vector<int>> LoadCSV(std::string filepath, bool hasHeader);
+    std::unordered_map<int, double> PageRank(int iterations);
     int getNumVertices() { return numVertices; }
     int getNumEdges() { return numEdges; }
     void printGraph();
