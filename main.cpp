@@ -1,5 +1,11 @@
 #include <iostream>
 
-#include "loadcsv/loadcsv.h"
 
-int main() { auto g = LoadCSV("assets/datasets/data.csv", true); }
+#include "graph/graph.h"
+
+
+int main() {
+    auto g = Graph("assets/data.csv", true);
+    // auto g = Graph("assets/data.csv", true);
+    g.printGraph();
+}
