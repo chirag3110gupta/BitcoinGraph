@@ -2,28 +2,29 @@
 
 #include <unordered_map>
 #include <vector>
+#include <string>
 
-#include "../bitcoin/transaction.h"
-#include "../bitcoin/user.h"
+#include "edge.h"
 
 class Graph {
    public:
     Graph();
+    Graph(std::string filepath, bool hasHeader);
     ~Graph();
 
-    bool edge_exists(int source, int target);
-    bool vertex_exists(User vertex);
-    void insert_vertex(User vertex);
-    void insert_edge(User source, User target, double weight);
-    std::vector<User> get_in_adjacent(User vertex);
-    std::vector<User> get_out_ajacent(User vertex);
-    double get_rating(int source, int target);
+    bool edgeExists(Vertex source, Vertex target);
+    bool vertexExists(Vertex vertex);
+    void insertVertex(Vertex vertex);
+    void insertEdge(Vertex source, Vertex target, double weight);
+    std::vector<Vertex> getInAdjacent(Vertex vertex);
+    std::vector<Vertex> getOutAjacent(Vertex vertex);
+    int getRating(Vertex source, Vertex target);
     void BFS(int source);
-    std::vector<std::string> LoadCSV(std::string filepath, bool has_header);
+    std::vector<std::vector<int>> LoadCSV(std::string filepath, bool hasHeader);
 
    private:
 
     std::unordered_map<
-        int, std::pair<std::vector<Transaction>, std::vector<Transaction>>>
+        int, std::pair<std::vector<Edge>, std::vector<Edge>>>
         adjList;
 };

@@ -1,5 +1,5 @@
 EXENAME = final_proj
-OBJS = main.o user.o transaction.o graph.o
+OBJS = main.o graph.o
 
 CXX = clang++
 CXXFLAGS = $(CS225) -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
@@ -35,14 +35,17 @@ $(EXENAME) : output_msg $(OBJS)
 main.o : main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp
 
-graph.o : graph/graph.cpp graph/graph.h bitcoin/user.h bitcoin/transaction.h
+graph.o : graph/graph.cpp graph/graph.h graph/edge.h
 	$(CXX) $(CXXFLAGS) graph/graph.cpp
 
-user.o : bitcoin/user.cpp bitcoin/user.h bitcoin/transaction.h
-	$(CXX) $(CXXFLAGS) bitcoin/user.cpp
+edge.o : graph/edge.h
+	$(CXX) $(CXXFLAGS) graph/edge.h
 
-transaction.o : bitcoin/transaction.cpp bitcoin/transaction.h bitcoin/user.h
-	$(CXX) $(CXXFLAGS) bitcoin/transaction.cpp
+# user.o : bitcoin/user.cpp bitcoin/user.h bitcoin/transaction.h
+# 	$(CXX) $(CXXFLAGS) bitcoin/user.cpp
+
+# transaction.o : bitcoin/transaction.cpp bitcoin/transaction.h bitcoin/user.h
+# 	$(CXX) $(CXXFLAGS) bitcoin/transaction.cpp
 # PNG.o : cs225/PNG.cpp cs225/PNG.h cs225/HSLAPixel.h cs225/lodepng/lodepng.h
 # 	$(CXX) $(CXXFLAGS) cs225/PNG.cpp
 

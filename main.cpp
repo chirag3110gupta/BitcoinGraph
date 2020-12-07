@@ -5,8 +5,8 @@
 #include "loadcsv/loadcsv.h"
 
 int main() {
-    auto g = Graph();
-    auto b = g.LoadCSV("assets/datasets/data.csv", true);
-    for (auto j : b)
-        std::cout<<j<<std::endl;
+    auto g = Graph("assets/datasets/data.csv", true);
+    // auto b = g.LoadCSV("assets/datasets/data.csv", true);
+    // for (auto j : b)
+    //     std::cout<<j<<std::endl;
 }
