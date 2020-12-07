@@ -20,16 +20,8 @@ class Graph {
     std::vector<Vertex> getOutAjacent(Vertex vertex);
     int getRating(Vertex source, Vertex target);
     void BFS(int source);
-<<<<<<< HEAD
-    void PageRank(int iterations);
-
-   private:
-    std::unordered_map<
-        User, std::pair<std::vector<Transaction>, std::vector<Transaction>>>
-        adjList;
-    std::unordered_map<User, double> pagerank;
-=======
     std::vector<std::vector<int>> LoadCSV(std::string filepath, bool hasHeader);
+    std::unordered_map<int, double> PageRank(int iterations);
     int getNumVertices() { return numVertices; }
     int getNumEdges() { return numEdges; }
     void printGraph();
@@ -37,5 +29,4 @@ class Graph {
    private:
     int numVertices{0}, numEdges{0};
     std::unordered_map<int, std::pair<std::vector<Edge>, std::vector<Edge>>> adjList;
->>>>>>> 511677b738bf33c05ef0b2e3ee7fe875e654fa40
 };
