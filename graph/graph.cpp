@@ -108,9 +108,9 @@ std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
  * @returns A vector of Users that have an ougoing edge from the specified
  *vertex
  **/
-std::vector<Vertex> Graph::getOutAjacent(Vertex vertex) {
+std::vector<Vertex> Graph::getOutAdjacent(Vertex vertex) {
     auto adjacent = std::vector<Vertex>();
-    for (auto& edge : adjList.at(vertex).first) adjacent.push_back(edge.source);
+    for (auto& edge : adjList.at(vertex).first) adjacent.push_back(edge.target);
 
     return adjacent;
 }
@@ -286,9 +286,9 @@ std::unordered_map<int, double> Graph::betweennessCentrality() {
             S.pop();
             for (auto& obj : Pred.at(w)) {
                 delta[obj] = delta.at(obj) + ((sig.at(obj) / sig.at(w)) * (1 + delta.at(w)));
-                if (w != source.first) {
-                    centrality[w] = centrality.at(w) + delta.at(w);
-                }
+            }
+            if (w != source.first) {
+                centrality[w] = centrality.at(w) + delta.at(w);
             }
         }
         // count += sig.size();
