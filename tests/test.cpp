@@ -42,3 +42,15 @@ TEST_CASE("Graph::LoadCSV::Without headings)", "[weight=1][part=1][valgrind]") {
 
     REQUIRE(g.LoadCSV("tests/test_loadCSV_noheadings.csv", false) == given_vec);
 }
+
+TEST_CASE("Betweenness Centrality # 1", "[weigh=1][part=2]") {
+    Graph g = Graph("tests/test_data_headings.csv", true);
+    std::unordered_map<int, double> cent = g.betweennessCentrality();
+    REQUIRE(cent[6] < cent[1]);
+}
+
+TEST_CASE("Betweenness Centrality # 2", "[weigh=1][part=2]") {
+    Graph g = Graph("tests/test_data_headings.csv", true);
+    std::unordered_map<int, double> cent = g.betweennessCentrality();
+    REQUIRE(cent[52] == 0);
+}

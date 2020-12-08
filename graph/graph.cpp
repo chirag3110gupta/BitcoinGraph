@@ -7,6 +7,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <queue>
+#include <stack>
 
 #include "edge.h"
 
@@ -231,4 +233,67 @@ std::unordered_map<int, double> Graph::PageRank(int iterations) {
     }
 
     return newPageRank;
+}
+
+std::unordered_map<int, double> Graph::betweennessCentrality(){
+    std::unordered_map<int, double> centrality;
+    for(auto & source : adjList) {
+        centrality[source.first] = 0.0;
+    }
+    // int count = 0;
+    for(auto & source : adjList) {
+        // This represents the list of predecessors on the shortest paths from the selected source vertex 
+        std::unordered_map<int, std::vector<int>> Pred; 
+        // Shortest distance of each vertex from the source
+        std::unordered_map<int, int> Dist;
+        // Number of shortest paths from source to given vertex
+        std::unordered_map<int, int> sig;
+        std::queue<int> Q;
+        for(auto & mid : adjList) {
+            std::vector<int> list;
+            Pred[mid.first] = list;
+            // -1 implies infinite
+            Dist[mid.first] = -1;
+            sig[mid.first] = 0;
+        }
+        Dist[source.first] = 0;
+        sig[source.first] = 1;
+        Q.push(source.first);
+
+        std::stack<int> S;
+        while(!Q.empty()) {
+            int v = Q.front();
+            Q.pop();
+            S.push(v);
+            for(auto & dest : adjList.at(v).first) {
+                if(Dist.at(dest.target) == -1){
+                    Dist[dest.target] = Dist.at(v) + 1;
+                    Q.push(dest.target);
+                }
+
+                if(Dist.at(dest.target) == Dist.at(v) + 1) {
+                    sig[dest.target] = sig.at(v) + sig.at(dest.target);
+                    Pred[dest.target].push_back(v);
+                }
+            }
+        }
+
+        std::unordered_map<int, double> delta;
+        for(auto & vert : adjList) {
+            delta[vert.first] = 0.0;
+        }
+        while(!S.empty()) {
+            int w = S.top();
+            S.pop();
+            for(auto & obj : Pred.at(w)) {
+                delta[obj] = delta.at(obj) + ((sig.at(obj)/sig.at(w))*(1+delta.at(w)));
+                if(w != source.first) {
+                    centrality[w] = centrality.at(w) + delta.at(w);
+                }
+            }
+        }
+        // count += sig.size();
+    }
+    // std::cout << count << std::endl;
+    return centrality;
 }
