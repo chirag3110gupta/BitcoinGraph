@@ -4,7 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <list>
+#include <queue>
 #include <sstream>
+#include <stack>
 #include <string>
 #include <vector>
 
@@ -35,7 +37,7 @@ bool Graph::edgeExists(Vertex source, Vertex target) {
     auto e = Edge(source, target);
     if (!vertexExists(source)) return false;
 
-    for (auto &edge : adjList.at(source).first) {
+    for (auto& edge : adjList.at(source).first) {
         if (edge == e) return true;
     }
 
@@ -93,7 +95,7 @@ void Graph::insertEdge(Vertex source, Vertex target, int rating) {
  **/
 std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
     auto adjacent = std::vector<Vertex>();
-    for (auto &edge : adjList.at(vertex).second) adjacent.push_back(edge.source);
+    for (auto& edge : adjList.at(vertex).second) adjacent.push_back(edge.source);
 
     return adjacent;
 }
@@ -108,7 +110,7 @@ std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
  **/
 std::vector<Vertex> Graph::getOutAjacent(Vertex vertex) {
     auto adjacent = std::vector<Vertex>();
-    for (auto &edge : adjList.at(vertex).first) adjacent.push_back(edge.source);
+    for (auto& edge : adjList.at(vertex).first) adjacent.push_back(edge.source);
 
     return adjacent;
 }
@@ -124,7 +126,7 @@ std::vector<Vertex> Graph::getOutAjacent(Vertex vertex) {
  **/
 int Graph::getRating(Vertex source, Vertex target) {
     auto e = Edge(source, target);
-    for (auto &edge : adjList.at(source).first)
+    for (auto& edge : adjList.at(source).first)
         if (e == edge) return edge.getRating();
 
     return e.getRating();  // INT_MIN
@@ -184,8 +186,6 @@ std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeade
     return toReturn;
 }
 
-
-
 void Graph::printGraph() {
     for (auto entry : adjList) {
         for (auto f : entry.second.first) std::cout << f << std::endl;
@@ -206,7 +206,7 @@ std::unordered_map<int, double> Graph::PageRank(int iterations) {
 
     for (auto& pair : adjList) {
         int curr = pair.first;
-        oldPageRank[curr] = 1/sizeOfGraph;
+        oldPageRank[curr] = 1 / sizeOfGraph;
     }
 
     while (iterations > 0) {
@@ -214,16 +214,17 @@ std::unordered_map<int, double> Graph::PageRank(int iterations) {
 
         for (auto& pair : adjList) {
             int curr = pair.first;
-            if (adjList[curr].second.size() == 0) {                             // Transactions from user
-                dp = dp + (dampingFactor * oldPageRank[curr]/sizeOfGraph);
+            if (adjList[curr].second.size() == 0) {  // Transactions from user
+                dp = dp + (dampingFactor * oldPageRank[curr] / sizeOfGraph);
             }
         }
 
         for (auto& pair : adjList) {
             int curr = pair.first;
-            newPageRank[curr] = dp + ((1 - dampingFactor)/sizeOfGraph);
+            newPageRank[curr] = dp + ((1 - dampingFactor) / sizeOfGraph);
             for (Edge& transaction : adjList[curr].second) {
-                newPageRank[curr] += dampingFactor * oldPageRank[transaction.source]/adjList[transaction.source].second.size(); // Transactions from user
+                newPageRank[curr] += dampingFactor * oldPageRank[transaction.source] /
+                                     adjList[transaction.source].second.size();  // Transactions from user
             }
         }
         oldPageRank = newPageRank;
@@ -231,4 +232,67 @@ std::unordered_map<int, double> Graph::PageRank(int iterations) {
     }
 
     return newPageRank;
+}
+
+std::unordered_map<int, double> Graph::betweennessCentrality() {
+    std::unordered_map<int, double> centrality;
+    for (auto& source : adjList) {
+        centrality[source.first] = 0.0;
+    }
+    // int count = 0;
+    for (auto& source : adjList) {
+        // This represents the list of predecessors on the shortest paths from the selected source vertex
+        std::unordered_map<int, std::vector<int>> Pred;
+        // Shortest distance of each vertex from the source
+        std::unordered_map<int, int> Dist;
+        // Number of shortest paths from source to given vertex
+        std::unordered_map<int, int> sig;
+        std::queue<int> Q;
+        for (auto& mid : adjList) {
+            std::vector<int> list;
+            Pred[mid.first] = list;
+            // -1 implies infinite
+            Dist[mid.first] = -1;
+            sig[mid.first] = 0;
+        }
+        Dist[source.first] = 0;
+        sig[source.first] = 1;
+        Q.push(source.first);
+
+        std::stack<int> S;
+        while (!Q.empty()) {
+            int v = Q.front();
+            Q.pop();
+            S.push(v);
+            for (auto& dest : adjList.at(v).first) {
+                if (Dist.at(dest.target) == -1) {
+                    Dist[dest.target] = Dist.at(v) + 1;
+                    Q.push(dest.target);
+                }
+
+                if (Dist.at(dest.target) == Dist.at(v) + 1) {
+                    sig[dest.target] = sig.at(v) + sig.at(dest.target);
+                    Pred[dest.target].push_back(v);
+                }
+            }
+        }
+
+        std::unordered_map<int, double> delta;
+        for (auto& vert : adjList) {
+            delta[vert.first] = 0.0;
+        }
+        while (!S.empty()) {
+            int w = S.top();
+            S.pop();
+            for (auto& obj : Pred.at(w)) {
+                delta[obj] = delta.at(obj) + ((sig.at(obj) / sig.at(w)) * (1 + delta.at(w)));
+                if (w != source.first) {
+                    centrality[w] = centrality.at(w) + delta.at(w);
+                }
+            }
+        }
+        // count += sig.size();
+    }
+    // std::cout << count << std::endl;
+    return centrality;
 }

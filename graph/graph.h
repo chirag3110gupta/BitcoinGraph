@@ -25,6 +25,7 @@ class Graph {
     int getNumVertices() { return numVertices; }
     int getNumEdges() { return numEdges; }
     void printGraph();
+    std::unordered_map<int, double> betweennessCentrality();
 
    private:
     int numVertices{0}, numEdges{0};
