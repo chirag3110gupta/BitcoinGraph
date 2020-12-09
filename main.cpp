@@ -16,6 +16,19 @@ std::vector<std::pair<int, double>> sort(std::unordered_map<int, double> map) {
     return A;
 }
 
+void usageErr() {
+    std::cout << "\nUsage:\n" << std::endl;
+    std::cout << "1st param is the filepath for the csv data relative to cwd\n";
+    std::cout << "      EX: assets/data.csv\n\n";
+    std::cout << "2nd param is a bool for whether csv file has headings or not\n";
+    std::cout << "      EX: true\n\n";
+    std::cout << "3rd param is the vertex the user wants data of (or type 'all' to save all data to a txt file)\n";
+    std::cout << "      EX: 1200\n\n";
+    std::cout << "4th param (optional) is the numnber of iterations for pagerank (defaults to 100) \n";
+    std::cout << "      EX: 500\n\n";
+    std::cout << "Example CLI command: ./final_proj assets/data.csv true 1200 500 \n" << std::endl;
+}
+
 int main(int argc, const char** argv) {
     /**argument 1 is the command ./final_proj
      * argument 2 is the filepath,
@@ -25,18 +38,10 @@ int main(int argc, const char** argv) {
      **/
     // std::cout << argc << std::endl;
     if (argc < 4 || argc >= 6) {
-        std::cout << "Usage:" << std::endl;
-        std::cout << "1st param is the filepath for the csv data relative to cwd\n";
-        std::cout << "      EX: assets/data.csv\n\n";
-        std::cout << "2nd param is a bool for whether csv file has headings or not\n";
-        std::cout << "      EX: true\n\n";
-        std::cout << "3rd param is the vertex the user wants data of (or type 'all' to save all data to a txt file)\n";
-        std::cout << "      EX: 1200\n\n";
-        std::cout << "4th param (optional) is the numnber of iterations for pagerank (defaults to 100) \n";
-        std::cout << "      EX: 500\n\n";
-        std::cout << "Example CLI command: ./final_proj assets/data.csv true 1200 500" << std::endl;
+        usageErr();
         return 0;
     }
+    
     int iter = 100;
     if (argc == 5) {
         iter = atoi(argv[4]);
@@ -45,11 +50,12 @@ int main(int argc, const char** argv) {
             return 0;
         }
     }
+
     string filepath = argv[1];
     bool hasHeaders = false;
-    if (strcmp(argv[2], "true")) {
+    if (strcmp(argv[2], "true") == 0) {
         hasHeaders = true;
-    } else if (strcmp(argv[2], "false")) {
+    } else if (strcmp(argv[2], "false") != 0) {
         hasHeaders = false;
     } else {
         std::cout << "Please enter either a true or a false for the 2nd param only!" << std::endl;
@@ -64,7 +70,7 @@ int main(int argc, const char** argv) {
     auto page = g.PageRank(iter);
 
     int uid;
-    if (strcmp(argv[3], "all"))
+    if (strcmp(argv[3], "all") == 0)
         uid = -1;
     else
         uid = atoi(argv[3]);
@@ -93,11 +99,8 @@ int main(int argc, const char** argv) {
         }
         out2.close();
     } else {
+        std::cout << "The vertex with User ID " << uid << " has \n";
         std::cout << "Betweenness Number :" << cent[uid] << "   "
                   << "Page rank :" << page[uid] << std::endl;
     }
-    // // g.printGraph();
-    // for (auto& obj : cent) {
-    //     std::cout << obj.first << " : " << obj.second << std::endl;
-    // }
 }

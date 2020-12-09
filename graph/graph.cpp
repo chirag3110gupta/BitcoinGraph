@@ -132,9 +132,9 @@ int Graph::getRating(Vertex source, Vertex target) {
     return e.getRating();  // INT_MIN
 }
 
-/*
+
 void Graph::BFS(int source) {
-vector<bool> visited;
+std::unordered_map<int,bool> visited(false);
 std::list<int> queue;
 visited[source] = true;
 queue.push_back(source);
@@ -143,18 +143,18 @@ while (!queue.empty()) {
     int source = queue.front();
     queue.pop_front();
 
-    for (auto &obj : adjList.at(source).first) {
+    for (auto &obj : getOutAdjacent(source)) {
 
         // TODO:explanation
 
-        if (!visited[(*obj.target()).getUserID()]) {
-            visited[(*obj.target()).getUserID()] = true;
-            queue.push_back((*obj.target()).getUserID());
+        if (!visited[obj]) {
+            visited[obj] = true;
+            queue.push_back(obj);
         }
     }
 }
 }
-**/
+
 
 std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeader) {
     std::vector<std::vector<int>> toReturn;
