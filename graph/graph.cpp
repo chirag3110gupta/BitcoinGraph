@@ -200,38 +200,35 @@ void Graph::printGraph() {
 }
 
 std::unordered_map<int, double> Graph::PageRank(int iterations) {
-    std::unordered_map<int, double> oldPageRank, newPageRank;
-    double sizeOfGraph = adjList.size();
-    double dampingFactor = 0.85;
-
+    double d = 0.85;
+    std::unordered_map<int, int> oh;
+    std::unordered_map<int, std::vector<int>> ih;
+    std::unordered_map<int, double> opg, npg;
+    int N = adjList.size();
     for (auto& pair : adjList) {
-        int curr = pair.first;
-        oldPageRank[curr] = 1 / sizeOfGraph;
+        oh[pair.first] = adjList[pair.first].first.size();
+        ih[pair.first] = getInAdjacent(pair.first);
+        opg[pair.first] = 1/N;
     }
-
     while (iterations > 0) {
         double dp = 0;
-
         for (auto& pair : adjList) {
-            int curr = pair.first;
-            if (adjList[curr].second.size() == 0) {  // Transactions from user
-                dp = dp + (dampingFactor * oldPageRank[curr] / sizeOfGraph);
+            int p = pair.first;
+            if (oh[p] == 0) {
+                dp = dp + d * opg[p]/N;
             }
         }
-
         for (auto& pair : adjList) {
-            int curr = pair.first;
-            newPageRank[curr] = dp + ((1 - dampingFactor) / sizeOfGraph);
-            for (Edge& transaction : adjList[curr].second) {
-                newPageRank[curr] += dampingFactor * oldPageRank[transaction.source] /
-                                     adjList[transaction.source].second.size();  // Transactions from user
+            int p = pair.first;
+            npg[p] = dp + (1 - d)/N;
+            for (auto& ip : ih[p]) {
+                npg[p] += d * opg[ip] / oh[ip];
             }
         }
-        oldPageRank = newPageRank;
+        opg = npg;
         iterations--;
     }
-
-    return newPageRank;
+    return npg;
 }
 
 std::unordered_map<int, double> Graph::betweennessCentrality() {
