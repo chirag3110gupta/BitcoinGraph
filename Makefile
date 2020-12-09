@@ -82,4 +82,4 @@ catchmain.o : tests/catch/catch.hpp tests/catch/catchmain.cpp
 
 
 clean :
-	-rm -f *.o $(EXE) $(TEST)
+	-rm -f *.o $(EXE) $(TEST) betweenness.txt pagerank.txt
