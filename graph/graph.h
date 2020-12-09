@@ -19,7 +19,8 @@ class Graph {
     std::vector<Vertex> getInAdjacent(Vertex vertex);
     std::vector<Vertex> getOutAdjacent(Vertex vertex);
     int getRating(Vertex source, Vertex target);
-    void BFS(int source);
+    std::unordered_map<int, int> BFS(int source);
+    std::vector<int> findPath(int source, int target);
     std::vector<std::vector<int>> LoadCSV(std::string filepath, bool hasHeader);
     std::unordered_map<int, double> PageRank(int iterations);
     int getNumVertices() { return numVertices; }

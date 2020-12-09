@@ -133,7 +133,8 @@ int Graph::getRating(Vertex source, Vertex target) {
 }
 
 
-void Graph::BFS(int source) {
+std::unordered_map<int, int> Graph::BFS(int source) {
+std::unordered_map<int, int> toReturn;
 std::unordered_map<int,bool> visited(false);
 std::list<int> queue;
 visited[source] = true;
@@ -149,12 +150,30 @@ while (!queue.empty()) {
 
         if (!visited[obj]) {
             visited[obj] = true;
+            toReturn[obj] = source;
             queue.push_back(obj);
         }
     }
 }
+return toReturn;
 }
 
+
+std::vector<int> Graph::findPath(int source, int target) {
+    auto bfs = BFS(source);
+    int curr = bfs[target];
+    std::vector<int> toReturn;
+    toReturn.push_back(target);
+    int count = 0;
+    std::cout << "The path is : \n";
+    while (curr != 0 && count < getNumEdges()) {
+        toReturn.push_back(curr);
+        curr = bfs[curr];
+        count++;
+    }
+    std::reverse(toReturn.begin(), toReturn.end());
+    return toReturn;
+}
 
 std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeader) {
     std::vector<std::vector<int>> toReturn;
