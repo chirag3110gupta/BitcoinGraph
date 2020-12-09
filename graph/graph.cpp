@@ -246,7 +246,7 @@ std::unordered_map<int, double> Graph::betweennessCentrality() {
         // Shortest distance of each vertex from the source
         std::unordered_map<int, int> Dist;
         // Number of shortest paths from source to given vertex
-        std::unordered_map<int, int> sig;
+        std::unordered_map<int, double> sig;
         std::queue<int> Q;
         for (auto& mid : adjList) {
             std::vector<int> list;
@@ -264,15 +264,15 @@ std::unordered_map<int, double> Graph::betweennessCentrality() {
             int v = Q.front();
             Q.pop();
             S.push(v);
-            for (auto& dest : adjList.at(v).first) {
-                if (Dist.at(dest.target) == -1) {
-                    Dist[dest.target] = Dist.at(v) + 1;
-                    Q.push(dest.target);
+            for (auto& dest : adjList.at(v).second) {
+                if (Dist.at(dest.source) == -1) {
+                    Dist[dest.source] = Dist.at(v) + 1;
+                    Q.push(dest.source);
                 }
 
-                if (Dist.at(dest.target) == Dist.at(v) + 1) {
-                    sig[dest.target] = sig.at(v) + sig.at(dest.target);
-                    Pred[dest.target].push_back(v);
+                if (Dist.at(dest.source) == Dist.at(v) + 1) {
+                    sig[dest.source] = sig.at(v) + sig.at(dest.source);
+                    Pred[dest.source].push_back(v);
                 }
             }
         }
