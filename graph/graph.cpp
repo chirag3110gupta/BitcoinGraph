@@ -95,6 +95,7 @@ void Graph::insertEdge(Vertex source, Vertex target, int rating) {
  **/
 std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
     auto adjacent = std::vector<Vertex>();
+    
     for (auto& edge : adjList.at(vertex).second) adjacent.push_back(edge.source);
 
     return adjacent;
@@ -110,6 +111,7 @@ std::vector<Vertex> Graph::getInAdjacent(Vertex vertex) {
  **/
 std::vector<Vertex> Graph::getOutAdjacent(Vertex vertex) {
     auto adjacent = std::vector<Vertex>();
+    
     for (auto& edge : adjList.at(vertex).first) adjacent.push_back(edge.target);
 
     return adjacent;
@@ -126,6 +128,7 @@ std::vector<Vertex> Graph::getOutAdjacent(Vertex vertex) {
  **/
 int Graph::getRating(Vertex source, Vertex target) {
     auto e = Edge(source, target);
+    
     for (auto& edge : adjList.at(source).first)
         if (e == edge) return edge.getRating();
 
@@ -146,8 +149,6 @@ while (!queue.empty()) {
 
     for (auto &obj : getOutAdjacent(source)) {
 
-        // TODO:explanation
-
         if (!visited[obj]) {
             visited[obj] = true;
             toReturn[obj] = source;
@@ -166,6 +167,7 @@ std::vector<int> Graph::findPath(int source, int target) {
     toReturn.push_back(target);
     int count = 0;
     std::cout << "The path is : \n";
+    
     while (curr != 0 && count < getNumEdges()) {
         toReturn.push_back(curr);
         curr = bfs[curr];
@@ -198,7 +200,9 @@ std::vector<std::vector<int>> Graph::LoadCSV(std::string filepath, bool hasHeade
 
             toReturn.push_back(tempVec);
         }
-    } else
+    } 
+    
+    else
         std::cerr << "Invalid csv filepath" << std::endl;
 
     data.close();
@@ -224,22 +228,28 @@ std::unordered_map<int, double> Graph::PageRank(int iterations) {
     std::unordered_map<int, std::vector<int>> ih;
     std::unordered_map<int, double> opg, npg;
     int N = adjList.size();
+    
     for (auto& pair : adjList) {
         oh[pair.first] = adjList[pair.first].first.size();
         ih[pair.first] = getInAdjacent(pair.first);
         opg[pair.first] = 1/N;
     }
+    
     while (iterations > 0) {
         double dp = 0;
+        
         for (auto& pair : adjList) {
             int p = pair.first;
+            
             if (oh[p] == 0) {
                 dp = dp + d * opg[p]/N;
             }
         }
+        
         for (auto& pair : adjList) {
             int p = pair.first;
             npg[p] = dp + (1 - d)/N;
+            
             for (auto& ip : ih[p]) {
                 npg[p] += d * opg[ip] / oh[ip];
             }
@@ -276,10 +286,12 @@ std::unordered_map<int, double> Graph::betweennessCentrality() {
         Q.push(source.first);
 
         std::stack<int> S;
+        
         while (!Q.empty()) {
             int v = Q.front();
             Q.pop();
             S.push(v);
+            
             for (auto& dest : adjList.at(v).second) {
                 if (Dist.at(dest.source) == -1) {
                     Dist[dest.source] = Dist.at(v) + 1;
@@ -294,21 +306,23 @@ std::unordered_map<int, double> Graph::betweennessCentrality() {
         }
 
         std::unordered_map<int, double> delta;
+        
         for (auto& vert : adjList) {
             delta[vert.first] = 0.0;
         }
+        
         while (!S.empty()) {
             int w = S.top();
             S.pop();
+            
             for (auto& obj : Pred.at(w)) {
                 delta[obj] = delta.at(obj) + ((sig.at(obj) / sig.at(w)) * (1 + delta.at(w)));
             }
+            
             if (w != source.first) {
                 centrality[w] = centrality.at(w) + delta.at(w);
             }
         }
-        // count += sig.size();
     }
-    // std::cout << count << std::endl;
     return centrality;
 }
