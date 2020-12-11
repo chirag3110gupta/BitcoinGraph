@@ -31,4 +31,4 @@
     - "**f**" is to find path using BFS
   - **Argument 7:** integer number of iterations for PageRank (defaults to 100); **optional**
   - **Argument 8:** integer target to find path; **optional**
-- **Example CLI Command:** ./final_proj assets/data.csv true all f 20 13
+- **Example CLI Command:** "**./final_proj assets/data.csv true all f 20 13**"
