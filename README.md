@@ -11,7 +11,6 @@
 ## Team Contract
 
 - [Contract](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Team%20Contract.pdf)
-- [Presentation]()
 
 ## Project Details
 
@@ -19,6 +18,7 @@
 - Specifications: [Project Goals](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Project%20Goals.md)
 - Assignments/Issues: [Task Board](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/projects/1)
 - Final Report: [Results](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Results.md)
+- [Presentation]()
 ### How To Run: ###
 - Clone/download the repository
 - Run "**make**" in your terminal
