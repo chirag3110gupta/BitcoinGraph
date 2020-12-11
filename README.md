@@ -15,12 +15,12 @@
 ## Project Details
 - Dataset used: [Bitcoin OTC trust weighted signed network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html) (processed)
 - Specifications: [Project Goals](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Project%20Goals.md)
-- [Jupyter Notebooks]()
+- [Jupyter Notebooks](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/225Project.png)
 - Assignments/Issues: [Task Board](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/projects/1)
 - Final Report: [Results](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Results.md)
 - **Presentation**:
   - [Slides](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Copy%20of%20Abstract%20Business%20Meeting%20by%20Slidesgo.pdf)
-  - [Video] ()
+  - [Video]()
 ### How To Run: ###
 - Clone/download the repository
 - Run "**make**" in your terminal
