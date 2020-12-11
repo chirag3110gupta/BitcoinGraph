@@ -31,7 +31,7 @@
     - "**p**" is for PageRank
     - "**b**" is for Betweenness Centrality
     - "**f**" is to find path using BFS
-  - **Argument 5:** one of the following
+  - **Argument 6:** one of the following
     - integer number of iterations for PageRank (defaults to 100); **optional**
     - integer target to find path; **optional**
 - **Disclaimer:** In addition to the command, at least four parameters must be specified in order for the program to run!
