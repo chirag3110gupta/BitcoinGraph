@@ -1,4 +1,5 @@
 # CS225 Final Project
+- This program organizes the Bitcoin OTC trust weighted signed network into graph structur. It uses the PageRank algorithm to find the most trusted/distrusted traders as well as Betweeness Centrality as a means of finding through which trader the most transactions pass through. There are a variety of real world applications for such a collection of algorithms, and in this case this program can be used in investigations and research in regards to Bitcoin transactions.
 
 ## Team Members
 
