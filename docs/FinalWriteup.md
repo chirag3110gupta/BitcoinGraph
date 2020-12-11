@@ -15,7 +15,7 @@ the PageRank algorithm. PageRank could be used in this data set to find the most
 traders as well as the least trustworthy ones. Secondly, we chose to implement
 Betweenness Centrality which allows us to find out through which trader the most
 number of transactions passes through. Finally we implemented a simple BFS to
-traverse the graph and find paths between vertices. Overall, the main goal was
+traverse the graph and find paths between vertices; we unintentionally partially implemented Djikstra's Overall, the main goal was
 to create a working, efficient codebase to extrapolate important information about
 the dataset. Given that such algorithms are so universal in application, it was not so difficult to implement them.
 We simply had to tailor the methods to fit our requirements and test them in
