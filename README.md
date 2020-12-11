@@ -30,8 +30,7 @@
     - "**p**" is for PageRank
     - "**b**" is for Betweenness Centrality
     - "**f**" is to find path using BFS
-  - **Argument 7:** 
+  - **Argument 7:** one of the following
     - integer number of iterations for PageRank (defaults to 100); **optional**
-    or
     - integer target to find path; **optional**
 - **Example CLI Command:** "**./final_proj assets/data.csv true all f 20 13**"
