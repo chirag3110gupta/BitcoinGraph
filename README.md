@@ -36,3 +36,5 @@
     - integer target to find path; **optional**
 - **Disclaimer:** In addition to the command, at least four parameters must be specified in order for the program to run!
 - **Example CLI Command:** "**./final_proj assets/data.csv true all f 20 13**"
+                           "**./final_proj assets/data.csv true all b**"
+                           "**./final_proj assets/data.csv true all p 100**"
