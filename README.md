@@ -20,7 +20,7 @@
 - Clone/download the repository
 - Run "**make**" in your terminal
 - The command to run our program has several parameters:
-  - **Command: ** "**./final_proj**"
+  - **Command:** "**./final_proj**"
   - **Argument 2:** filepath to CSV data
   - **Argument 3:** a boolean signifying whether or not the CSV file has headings
   - **Argument 4:** the vertex wanted by the user (or "**all**")
