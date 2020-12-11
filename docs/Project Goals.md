@@ -1,4 +1,4 @@
-# CS225 Final Project Goals
+# CS 225 Final Project Goals
 
 For our final project, we have selected a dataset from the [Stanford Large Network Dataset Collection](http://snap.stanford.edu/data/#road). We have decided to work with the [Bitcoin OTC Trusted Weighted Signed Network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html).
 
