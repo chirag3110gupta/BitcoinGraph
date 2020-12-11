@@ -33,6 +33,8 @@
     - "**f**" is to find path using BFS
   - **Argument 6:** one of the following
     - integer number of iterations for PageRank (defaults to 100); **optional**
+    - integer source to find path; **optional**
+  - **Argument 7:**
     - integer target to find path; **optional**
 - **Disclaimer:** In addition to the command, at least four parameters must be specified in order for the program to run!
 - **Example CLI Commands:** 
