@@ -1,4 +1,4 @@
-# CS225 Final Project: Development
+# CS 225 Final Project: Development
 
 ## Week 1:
 
