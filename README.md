@@ -13,9 +13,9 @@
 - [Contract](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Team%20Contract.pdf)
 
 ## Project Details
-
 - Dataset used: [Bitcoin OTC trust weighted signed network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html) (processed)
 - Specifications: [Project Goals](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Project%20Goals.md)
+- [Jupyter Notebooks]()
 - Assignments/Issues: [Task Board](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/projects/1)
 - Final Report: [Results](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Results.md)
 - **Presentation**:
