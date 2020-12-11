@@ -46,14 +46,14 @@ int main(int argc, const char** argv) {
      * argument 7 is the target for finding path (if applicable)
      **/
 
-    if (argc < 6 || argc > 7) {
+    if (argc < 5 || argc > 7) {
         usageErr();
         return 0;
     }
 
     int iter = 100;
 
-    if (argc == 5) {
+    if (argc >= 6) {
         iter = atoi(argv[5]);
 
         if (iter == 0) {
