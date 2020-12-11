@@ -33,11 +33,14 @@
     - "**f**" is to find path using BFS
   - **Argument 6:** one of the following
     - integer number of iterations for PageRank (defaults to 100); **optional**
-    - integer source to find path; **optional**
-  - **Argument 7:**
     - integer target to find path; **optional**
 - **Disclaimer:** In addition to the command, at least four parameters must be specified in order for the program to run!
 - **Example CLI Commands:** 
   - "**./final_proj assets/data.csv true all f 20 13**"
   - "**./final_proj assets/data.csv true all b**"
   - "**./final_proj assets/data.csv true all p 100**"
+  
+#### References ####
+- [BFS Traversal](https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/)
+- [Brande's Algorithm] (https://www.cl.cam.ac.uk/teaching/1617/MLRD/slides/slides13.pdf)
+- 
