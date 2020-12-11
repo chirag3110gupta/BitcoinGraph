@@ -25,12 +25,12 @@
   - **Argument 2:** filepath to CSV data
   - **Argument 3:** a boolean signifying whether or not the CSV file has headings
   - **Argument 4:** the vertex wanted by the user (or "**all**")
-  - **Argument 5:** a boolean signifying whether or not the CSV file has headings
-  - **Argument 6:** program code
+  - **Argument 5:** program code
     - "**p**" is for PageRank
     - "**b**" is for Betweenness Centrality
     - "**f**" is to find path using BFS
-  - **Argument 7:** one of the following
+  - **Argument 5:** one of the following
     - integer number of iterations for PageRank (defaults to 100); **optional**
     - integer target to find path; **optional**
+- **Disclaimer:** In addition to the command, at least four parameters must be specified in order for the program to run!
 - **Example CLI Command:** "**./final_proj assets/data.csv true all f 20 13**"
