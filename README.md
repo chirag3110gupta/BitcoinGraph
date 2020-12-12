@@ -19,7 +19,7 @@
 - Assignments/Issues: [Task Board](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/projects/1)
 - Final Report: [Results](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Results.md)
 - **Presentation**:
-  - [Slides](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Copy%20of%20Abstract%20Business%20Meeting%20by%20Slidesgo.pdf)
+  - [Slides](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Bitcoin%20Trust%20Analysis.pdf)
   - [Video](https://youtu.be/25IKQlgWT4U)
 ### How To Run: ###
 - Clone/download the repository
