@@ -1,4 +1,4 @@
-# CS 225 Final Project
+# BitcoinGraph Project
 - This program organizes the Bitcoin OTC trust weighted signed network into graph structure. It uses the PageRank algorithm to find the most trusted/distrusted traders as well as Betweeness Centrality as a means of finding through which trader the most transactions pass through. There are a variety of real world applications for such a collection of algorithms, and in this case this program can be used in investigations and research in regards to Bitcoin transactions.
 
 ## Team Members
@@ -7,10 +7,6 @@
 - Aliva Panigrahi (alivabp2)
 - Anit Kapoor (anityak2)
 - Chirag Gupta (chiragg4)  
-
-## Team Contract
-
-- [Contract](https://github-dev.cs.illinois.edu/cs225-fa20/chiragg4-anityak2-aditk3-alivabp2/blob/master/docs/Team%20Contract.pdf)
 
 ## Project Details
 - Dataset used: [Bitcoin OTC trust weighted signed network](http://snap.stanford.edu/data/soc-sign-bitcoin-otc.html) (processed)
